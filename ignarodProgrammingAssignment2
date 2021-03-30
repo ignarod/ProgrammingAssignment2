@@ -1,38 +1,38 @@
 
-makeCacheMatrix <- function( m = matrix() ) {
+## creamos un vector especial que puede almacenar en el caché su inverso
 
-    ## Initialize the inverse property
-    i <- NULL
+makeCacheMatrix <- function(x = matrix()) {
 
-    ## Method to set the matrix
-    set <- function( matrix ) {
-            m <<- matrix
-            i <<- NULL
+	##suponemos su propiedad inversa
+	i <- NULL
+
+	##configuramos la matriz
+set <- function( matrix ) {
+      m <<- matrix
+      i <<- NULL
     }
 
-    ## Method the get the matrix
-    get <- function() {
-        ## Return the matrix
-        m
+    ##obtenemos la matriz
+get <- function() {
+	m
     }
 
-    ## Method to set the inverse of the matrix
+    ##establecemos el invero de la matriz
     setInverse <- function(inverse) {
         i <<- inverse
     }
 
-    ## Method to get the inverse of the matrix
+    ##obtenemos la matriz
     getInverse <- function() {
-        ## Return the inverse property
+        ## corremos la propiedad inversa
         i
     }
 
-    ## Return a list of the methods
+    ## regresamos la lista de metodos
     list(set = set, get = get,
          setInverse = setInverse,
-         getInverse = getInverse)
+ 	   getInverse = getInverse)
 }
-
 
 
 cacheSolve <- function(x, ...) {
@@ -45,13 +45,9 @@ cacheSolve <- function(x, ...) {
             return(m)
     }
 
-    ## Get the matrix from our object
+    ## obtenemos la matriz de nuestro objeto
     data <- x$get()
 
-    ## Calculate the inverse using matrix multiplication
+    ## calculamos la inversa
     m <- solve(data) %*% data
-
-    ## Set the inverse to the object
     x$setInverse(m)
-
-    ## Return the matrix
